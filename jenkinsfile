@@ -1,0 +1,14 @@
+pipeline{
+    agent any    
+    stages("Build"){
+        stage{
+            sh 'maven clean package_using_pipeline'            
+        }
+        post {
+            success{
+                echo 'Archiving'
+                archiveArtifacts artifacts : '**/target/*.war'
+            }
+        }
+    }
+}
